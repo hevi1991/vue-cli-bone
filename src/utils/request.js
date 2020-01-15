@@ -2,6 +2,7 @@
 import axios from "axios";
 import qs from "qs";
 import router from "@/router";
+import vue from "@/main";
 
 // 设置环境
 const service = axios.create({
@@ -38,18 +39,19 @@ service.interceptors.response.use(
         return response;
       case 401:
         // 未登录
-        alert(response.data.msg);
         router.replace("/login");
         break;
     }
+    vue.$toast(response.data.msg, "error");
     return Promise.reject(response.data.msg);
   },
   e => {
     console.error("Request Error: " + e);
     if (!!e.message) {
       console.error(e.message);
+      vue.$toast(e.message);
     }
-    return Promise.reject(e);
+    return Promise.reject(e.message);
   }
 );
 

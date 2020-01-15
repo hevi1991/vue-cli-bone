@@ -7,6 +7,7 @@ function resolve(dir) {
 }
 
 module.exports = {
+  runtimeCompiler: true,
   publicPath: "/",
   devServer: {
     port: port,
@@ -51,5 +52,8 @@ module.exports = {
       .when(process.env.NODE_ENV === "development",
         config => config.devtool("cheap-source-map")
       );
-  }
+  },
+  transpileDependencies: [
+    "vuetify"
+  ]
 };
