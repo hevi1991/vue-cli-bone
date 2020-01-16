@@ -7,7 +7,6 @@ function resolve(dir) {
 }
 
 module.exports = {
-  runtimeCompiler: true,
   publicPath: "/",
   devServer: {
     port: port,
@@ -48,7 +47,7 @@ module.exports = {
       .end();
 
     config
-    // https://webpack.js.org/configuration/devtool/#development
+      // https://webpack.js.org/configuration/devtool/#development
       .when(process.env.NODE_ENV === "development",
         config => config.devtool("cheap-source-map")
       );

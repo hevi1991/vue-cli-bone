@@ -47,7 +47,6 @@
               <v-spacer/>
               <v-btn color="primary" @click="handleLogin">登录</v-btn>
               <v-btn @click="resetValidation">重置</v-btn>
-              <v-btn @click="$toast('hello')">test</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -65,7 +64,6 @@
     },
     data() {
       return {
-        valid: false,
         form: {
           username: "",
           password: ""
@@ -83,8 +81,12 @@
     methods: {
       async handleLogin() {
         if (this.$refs.form.validate()) {
-          await this.$store.dispatch("login", this.form);
-          this.$router.replace("/");
+          try {
+            await this.$store.dispatch("login", this.form);
+            this.$router.replace("/");
+          } catch (err) {
+            console.error(err);
+          }
         }
       },
       resetValidation() {

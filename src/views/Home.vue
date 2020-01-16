@@ -44,8 +44,12 @@
         }
       },
       async getRequest() {
-        let { data } = await getRequest();
-        this.getRes = data;
+        try {
+          let { data } = await getRequest();
+          this.getRes = data;
+        } catch (err) {
+          console.error(err);
+        }
       }
     }
   };

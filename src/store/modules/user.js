@@ -17,11 +17,14 @@ const actions = {
     commit("SET_TOKEN", 1);
     setToken(1);
   },
-  async logout({ commit }) {
+  async logout({ dispatch }) {
     const { data } = await logout();
+    dispatch("clearToken");
+    return data;
+  },
+  async clearToken({ commit }) {
     commit("SET_TOKEN", "");
     removeToken();
-    return data;
   }
 };
 

@@ -2,6 +2,7 @@
 import axios from "axios";
 import qs from "qs";
 import router from "@/router";
+import store from "@/store";
 import vue from "@/main";
 
 // 设置环境
@@ -39,10 +40,12 @@ service.interceptors.response.use(
         return response;
       case 401:
         // 未登录
-        router.replace("/login");
+        store.dispatch("clearToken").then(_ => {
+          router.replace("/login");
+        });
         break;
     }
-    vue.$toast(response.data.msg, "error");
+    vue.$toast.error(response.data.msg);
     return Promise.reject(response.data.msg);
   },
   e => {
